@@ -9,11 +9,13 @@ import { Cards } from './components/cards/cards';
   
 
 function App() {
+
+  
   return (
     <div className='App'>
+      
       <h1>Loteria</h1>
       <div className='Cards'>
-      
       <Cards/>
 
       </div>

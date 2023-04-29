@@ -1,0 +1,25 @@
+.cards-container {
+  background-color: red;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: center;
+}
+
+.card-container {
+  background-color: blue;
+  width: 12%;
+  padding: 10px;
+}
+
+.card {
+  background-color: aqua;
+  flex: 1 1 (100 / 4);
+  margin: 5px;
+  object-fit: cover;
+  height: 200px;
+}
+.image-card {
+  max-width: 100%;
+}

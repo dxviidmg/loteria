@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import axios from 'axios';
-
+import '../../App.css'
+import './cards.css'
 
 export function Card({card, index, onClick, style}){
     return (
         <div className="card">
-        <img src={card.image} alt={card.alt} style={style} onClick={() => onClick(index)}/>
-        <h1>{card.number} {card.name}</h1>
+        <img className="image-card" src={card.image} alt={card.alt} style={style} onClick={() => onClick(index)}/>
+        <p>{card.number} {card.name}</p>
       </div>
     )
 }
@@ -36,22 +37,17 @@ export function Cards(){
         console.log(error);
       });
   }, []);
-
-
+ 
   if (cards.length === 0){
     return <h1>Ganaste</h1>
   }
 
   return (
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        
+        <div className='container cards-container'>
         {cards.map((card, index) =>
-          <div key={index} style={{ width: '23%', padding: '10px' }}>
-            <Card card={card} index={index} onClick={handleDelete} style={{
-            flex: `1 1 ${(100 / 4).toFixed(2)}%`,
-            margin: '5px',
-            objectFit: 'cover',
-            height: '200px',
-          }}/>
+          <div className='card-container' key={index}>
+            <Card card={card} index={index} onClick={handleDelete}/>
           </div>
           
 

@@ -1,0 +1,26 @@
+.container-home{
+  position: relative;
+}
+.buttons-section {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.menu-button{
+    background-color: yellowgreen;
+    border-width: 5px;
+    padding: 20px 70px;
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 7vh;
+    border-radius: 50px;
+}
+
+.menu-header{
+  text-align: center;
+  padding-top: 10%;
+  font-size: 40px;
+
+}

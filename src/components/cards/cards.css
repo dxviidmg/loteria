@@ -1,0 +1,23 @@
+.cards-container {
+  background-color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.card-container {
+  background-color: blue;
+  padding: 20px;
+}
+
+.card {
+  text-align: center;
+}
+.card-div {
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+}
+
+.image-card {
+  width: 100%;
+}

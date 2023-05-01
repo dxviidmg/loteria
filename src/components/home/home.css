@@ -1,0 +1,23 @@
+.container-home{
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-items: center;
+  text-align: center;
+}
+
+.menu-button{
+    background-color: yellowgreen;
+    border-width: 5px;
+    padding: 20px 50px 20px 50px;
+    margin-right: 20px;
+    margin-left: 20px;
+    font-size: 4vh;
+    border-radius: 50px;
+}
+
+.menu-header{
+  font-size: 40px;
+
+}

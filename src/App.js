@@ -1,24 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
 
+import { Cards } from './components/cards/cards';
+import Homepage from './components/home/home';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { Lottery } from './components/lottery/lottery';
+import { Header } from './components/common/header';
+import { Footer } from './components/common/footer';
+
+
+// function de get data
+// buscar usestate en react
+  
+
 function App() {
+
+  
   return (
+
+    <BrowserRouter>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+
+      <Routes>
+        <Route exact path="/" element={<Homepage></Homepage>} />
+        <Route path="/tablero" element={<Cards />} />
+        <Route path="/sorteo" element={<Lottery />} />
+      </Routes>
+
+      <Footer />
     </div>
+    </BrowserRouter>
+
   );
 }
 

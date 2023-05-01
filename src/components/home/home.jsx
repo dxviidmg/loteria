@@ -4,8 +4,9 @@ import "./home.css";
 
 export default function Homepage() {
   return (
-    <div className="container container-home">
-      <h1 className="menu-header">̈́¿que desea hacer?</h1>
+    <div className="container">
+      <div className="container-home">
+      <h1 className="menu-header">¿Que hacer?</h1>
       <div className="buttons-section">
         <Link to="/tablero">
           <button className="menu-button">Generar tablero</button>
@@ -13,6 +14,7 @@ export default function Homepage() {
         <Link to="/sorteo">
           <button className="menu-button">Iniciar sorteo</button>
         </Link>
+      </div>
       </div>
     </div>
   );

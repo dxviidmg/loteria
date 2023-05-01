@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./lottery.css";
 
 /*
 1 arreglar el renderizado de los axios
@@ -13,7 +14,6 @@ export function Lottery() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [cards, setCards] = useState([]);
 
-
   useEffect(() => {
     axios
       .get("http://localhost:8000/api/cards/")
@@ -24,8 +24,6 @@ export function Lottery() {
         console.log(error);
       });
   }, []);
-
-
 
   useEffect(() => {
     let intervalId;
@@ -48,12 +46,17 @@ export function Lottery() {
   };
 
   return (
-    <div>
-      <button onClick={togglePlaying}>Iniciar presentación</button>
-      <img
-        src={cards[currentImage].image}
-        alt={`Imagen ${currentImage + 1}`}
-      />
+    <div className="container">
+      <div className="lottery-container">
+        <div className="image-div">
+          <img
+            className="image-lottery"
+            src={cards[currentImage].image}
+            alt={`Imagen ${currentImage + 1}`}
+          />
+        </div>
+        <button onClick={togglePlaying} className="menu-button" >Iniciar presentación</button>
+      </div>
     </div>
   );
 }

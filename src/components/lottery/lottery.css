@@ -1,0 +1,21 @@
+.lottery-container {
+    position: absolute;
+    top:45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: yellow;
+}
+
+.image-div {
+
+  overflow: hidden;
+  width: 425px;
+  height: 425px;
+  background-color: beige;
+
+}
+
+.image-lottery {
+background-color: blue;
+  width: 100%;
+}

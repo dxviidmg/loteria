@@ -1,62 +1,83 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./lottery.css";
+import fin from '../assets/img/fin.png'
 
 /*
 1 arreglar el renderizado de los axios
 2 Entender useeffect
 3 Entender logica de linea [isPlaying, cards.length]
+4 Recibir la data de una api y poder renderizarla por filas y responsivamente
+
+el renderizado es mas rapido que la api
+
+persistencia de datos en el localstorage
+
 
 */
 
+const url = 'http://localhost:8000/api/cards/'
+
 export function Lottery() {
-  const [currentImage, setCurrentImage] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [cards, setCards] = useState([]);
+    const [images, setImages] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const intervalId = useRef(null);
+  
+    useEffect(() => {
+      async function fetchImages() {
+        try {
+          const response = await axios.get(url);
+          const updatedResponse = [...response.data, {'name': 'Fin', 'image': fin}]
+          setImages(updatedResponse);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+  
+      fetchImages();
+    }, []);
+  
+    useEffect(() => {
+      function incrementIndex() {
+        setCurrentIndex((currentIndex + 1) % images.length);
+      }
+  
+      if (isPlaying) {
+        intervalId.current = setInterval(incrementIndex, 2000);
+      } else {
+        clearInterval(intervalId.current);
+      }
+  
+      return () => clearInterval(intervalId.current);
+    }, [currentIndex, images, isPlaying]);
 
-  useEffect(() => {
-    axios
-      .get("http://localhost:8000/api/cards/")
-      .then((response) => {
-        setCards(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
 
-  useEffect(() => {
-    let intervalId;
-    if (isPlaying) {
-      intervalId = setInterval(() => {
-        setCurrentImage((currentImage) => (currentImage + 1) % cards.length);
-      }, 2000);
+    useEffect(() => {
+      console.log('intervalId.current', currentIndex)
+      if (currentIndex === images.length - 1) {
+        setIsPlaying(false);
+      }
+    }, [currentIndex, images.length]);
+
+  
+    function handlePlayButtonClick() {
+      setIsPlaying(!isPlaying);
     }
-    return () => clearInterval(intervalId); // cleanup function to stop the interval when the component unmounts
-  }, [isPlaying, cards.length]);
-
-  useEffect(() => {
-    if (currentImage === cards.length - 1) {
-      setIsPlaying(false);
-    }
-  }, [currentImage, cards.length]);
-
-  const togglePlaying = () => {
-    setIsPlaying((isPlaying) => !isPlaying);
-  };
-
-  return (
-    <div className="container">
-      <div className="lottery-container">
-        <div className="image-div">
-          <img
-            className="image-lottery"
-            src={cards[currentImage].image}
-            alt={`Imagen ${currentImage + 1}`}
-          />
-        </div>
-        <button onClick={togglePlaying} className="menu-button" >Iniciar presentación</button>
-      </div>
-    </div>
-  );
-}
+  
+    return (
+      <>
+        <img
+          src={images[currentIndex]?.image}
+          alt="slider image"
+          onError={() => {
+            clearInterval(intervalId.current);
+            setIsPlaying(false);
+          }}
+        />
+        <button onClick={handlePlayButtonClick}>
+          {isPlaying ? 'Pause' : 'Play'}
+        </button>
+      </>
+    );
+  }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import "../../App.css";
 import "./cards.css";
-import { Link } from "react-router-dom";
+import { Row, Col } from 'react-bootstrap';
 
 
 export function Card({ card, index, onClick }) {
@@ -50,24 +50,12 @@ export function Cards() {
     window.location.reload();
   };
 
-  /*  const render = cards.map((card, index) => (
-    <div className="card-container" key={index}>
-      <Card card={card} index={index} onClick={handleDelete} />
-    </div>
-  ))
-
-
-  if (cards.length === 0) {
-    return <h1>Ganaste</h1>;
-  }
-*/
-
   return (
     <div className="container">
       <h1>Tablero</h1>
       {cards.length === 0 ? (
         <div className="winner-container">
-          <h1>Ganaste</h1>
+          <h1 className="ganaste-text">Ganaste!!!</h1>
           <button className="menu-button" onClick={handleRefresh}>Jugar otra vez</button>
         </div>
       ) : (

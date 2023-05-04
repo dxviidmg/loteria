@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./lottery.css";
-import fin from '../assets/img/fin.png'
+import fin from "../assets/img/fin.png";
 
 /*
 1 arreglar el renderizado de los axios
@@ -16,58 +16,64 @@ persistencia de datos en el localstorage
 
 */
 
-const url = 'http://localhost:8000/api/cards/'
+const url = "http://localhost:8000/api/cards/";
 
 export function Lottery() {
-    const [images, setImages] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const intervalId = useRef(null);
-  
-    useEffect(() => {
-      async function fetchImages() {
-        try {
-          const response = await axios.get(url);
-          const updatedResponse = [...response.data, {'name': 'Fin', 'image': fin}]
-          setImages(updatedResponse);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-  
-      fetchImages();
-    }, []);
-  
-    useEffect(() => {
-      function incrementIndex() {
-        setCurrentIndex((currentIndex + 1) % images.length);
-      }
-  
-      if (isPlaying) {
-        intervalId.current = setInterval(incrementIndex, 2000);
-      } else {
-        clearInterval(intervalId.current);
-      }
-  
-      return () => clearInterval(intervalId.current);
-    }, [currentIndex, images, isPlaying]);
+  const [images, setImages] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const intervalId = useRef(null);
 
-
-    useEffect(() => {
-      console.log('intervalId.current', currentIndex)
-      if (currentIndex === images.length - 1) {
-        setIsPlaying(false);
+  useEffect(() => {
+    async function fetchImages() {
+      try {
+        const response = await axios.get(url);
+        const updatedResponse = [...response.data, { name: "Fin", image: fin }];
+        setImages(updatedResponse);
+      } catch (error) {
+        console.error(error);
       }
-    }, [currentIndex, images.length]);
-
-  
-    function handlePlayButtonClick() {
-      setIsPlaying(!isPlaying);
     }
-  
-    return (
-      <>
-        <img
+
+    fetchImages();
+  }, []);
+
+  useEffect(() => {
+    function incrementIndex() {
+      setCurrentIndex((currentIndex + 1) % images.length);
+    }
+
+    if (isPlaying) {
+      intervalId.current = setInterval(incrementIndex, 2000);
+    } else {
+      clearInterval(intervalId.current);
+    }
+
+    return () => clearInterval(intervalId.current);
+  }, [currentIndex, images, isPlaying]);
+
+  useEffect(() => {
+    console.log("intervalId.current", currentIndex);
+    if (currentIndex === images.length - 1) {
+      setIsPlaying(false);
+    }
+  }, [currentIndex, images.length]);
+
+  function handlePlayButtonClick() {
+    setIsPlaying(!isPlaying);
+  }
+
+
+  const handleRefresh = () => {
+    window.location.reload();
+  };
+
+  return (
+    <div className="container">
+      <h1>Sorteo</h1>
+      <div className="lottery-container">
+        <div className="image-div">
+        <img className="image-lottery"
           src={images[currentIndex]?.image}
           alt="slider image"
           onError={() => {
@@ -75,9 +81,17 @@ export function Lottery() {
             setIsPlaying(false);
           }}
         />
-        <button onClick={handlePlayButtonClick}>
-          {isPlaying ? 'Pause' : 'Play'}
+        </div>
+        <br/>
+        <p>{images[currentIndex]?.name}</p>
+        <button className="menu-button" onClick={handlePlayButtonClick}>
+          {isPlaying ? "Pause" : "Play"}
         </button>
-      </>
-    );
-  }
+        <br/>
+        {currentIndex === images.length - 1 ? (<button className="menu-button" onClick={handleRefresh}>
+          Reiniciar
+        </button>): ""}
+      </div>
+    </div>
+  );
+}

@@ -1,11 +1,9 @@
 .cards-container {
-  background-color: red;
   display: flex;
   justify-content: center;
 }
 
 .card-container {
-  background-color: blue;
   padding: 20px;
 }
 

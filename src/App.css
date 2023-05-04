@@ -1,12 +1,12 @@
 html,
 body {
   min-height: 82vh;
-  background-color: antiquewhite;
+  background-color: #324CCD;
 }
 
 .container {
+  background-color: #329ACD;
   min-height: 82vh;
-  background-color: aqua;
   margin: 0 auto;
   text-align: center;
   padding-top: 5px;
